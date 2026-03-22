@@ -1,0 +1,2050 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/src/assets/svgviewer-output (3).svg"
+    />
+    <title>ChaiDesign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&family=Figtree:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Base resets & font assignment only — all layout/color via chai classes */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Figtree', sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      .display {
+        font-family: 'Syne', sans-serif;
+      }
+      code,
+      pre,
+      .mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      /* Sidebar scroll */
+      /* .sidebar {
+        overflow-y: auto;
+      } */
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 99px;
+      }
+
+      /* Nav link active/hover */
+      .nav-link {
+        transition:
+          color 0.15s,
+          border-color 0.15s,
+          background 0.12s;
+        border-left: 2px solid transparent;
+      }
+      .nav-link:hover {
+        color: #fb923c !important;
+        background: rgba(255, 255, 255, 0.04);
+        border-left-color: #fb923c;
+      }
+
+      /* Table row hover */
+      .ref-row:hover td {
+        background: #f8fafc;
+      }
+
+      /* Copy button */
+      .copy-btn {
+        transition:
+          background 0.15s,
+          color 0.15s;
+        cursor: pointer;
+      }
+      .copy-btn:hover {
+        background: #fb923c !important;
+        color: #fff !important;
+      }
+
+      /* Smooth section scroll target */
+      .section {
+        scroll-margin-top: 24px;
+      }
+
+      /* Section fade-in on load */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .section {
+        animation: fadeUp 0.4s ease both;
+      }
+      .section:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .section:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .section:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .section:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .section:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .section:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .section:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .section:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .section:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .section:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+
+      /* Mobile sidebar toggle */
+      @media (max-width: 900px) {
+        .sidebar {
+          display: none !important;
+        }
+        .main-wrap {
+          margin-left: 0 !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="chai-flex chai-min-h-screen chai-bg-slate-50">
+      <!--
+           SIDEBAR
+     ═ -->
+      <aside
+        class="sidebar chai-fixed chai-top-0 chai-left-0 chai-bg-slate-900 chai-flex chai-flex-col chai-overflow-y chai-w-230 chai-z-100 chai-max-h-100vh chai-overflow-y-auto"
+      >
+        <!-- Logo -->
+        <div
+          class="chai-px-24 chai-pt-28 chai-pb-20 chai-border-b chai-border-slate-700"
+        >
+          <div class="chai-flex chai-items-center chai-gap-10">
+            <div
+              class="chai-rounded chai-flex chai-items-center chai-justify-center chai-w-32 chai-h-32"
+            >
+              <span class="mono chai-text-white chai-font-700 chai-text-15"
+                ><img
+                  src="/src/assets/svgviewer-output (3).svg"
+                  class="chai-h-24 chai-w-24"
+                  alt=""
+              /></span>
+            </div>
+            <div>
+              <div class="display chai-text-white chai-font-700 chai-text-20">
+                chai
+              </div>
+              <div class="mono chai-text-slate-500 chai-text-10">Design</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav -->
+        <nav
+          class="chai-flex-1 chai-py-16 chai-flex chai-flex-col chai-gap-2"
+        ></nav>
+
+        <div
+          class="mono chai-text-slate-600 chai-px-24 chai-py-16 chai-border-t chai-border-slate-800"
+          style="font-size: 10px; letter-spacing: 0.06em"
+        >
+          v2.0 · object-map build
+        </div>
+      </aside>
+
+      <!--
+           MAIN CONTENT
+     ═ -->
+      <div
+        class="main-wrap chai-flex-1 chai-flex chai-flex-col chai-justify-center chai-ml-230"
+      >
+        <!--  HERO  -->
+        <header class="chai-bg-slate-900 chai-px-56 chai-pt-56 chai-pb-48">
+          <div
+            class="chai-flex chai-justify-center chai-items-center chai-gap-12 chai-mb-24"
+          >
+            <span
+              class="mono chai-bg-orange-500 chai-text-white chai-px-10 chai-py-4 chai-rounded"
+              style="
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              "
+              >Docs</span
+            >
+            <span class="mono chai-text-slate-500" style="font-size: 12px"
+              >chai-* utility reference</span
+            >
+          </div>
+          <h1
+            class="display chai-text-white chai-mb-16 chai-flex chai-justify-center"
+            style="font-size: 54px; letter-spacing: -1.5px; line-height: 1.05"
+          >
+            Style with<br /><span class="chai-text-orange-400"
+              >chai classes.</span
+            >
+          </h1>
+          <div
+            class="chai-flex chai-flex-col chai-justify-center chai-w-full chai-items-center"
+          >
+            <p
+              class="chai-text-slate-400 chai-mb-32"
+              style="font-size: 16px; max-width: 520px; line-height: 1.7"
+            >
+              A zero-dependency utility class engine. Add
+              <code
+                class="mono chai-bg-slate-800 chai-text-orange-300 chai-px-6 chai-py-2 chai-rounded"
+                style="font-size: 13px"
+                >chai-*</code
+              >
+              classes to any element — styles are applied at runtime and classes
+              are removed from the DOM.
+            </p>
+          </div>
+
+          <!-- Quick example -->
+          <div class="chai-flex chai-justify-center">
+            <div
+              class="chai-bg-slate-800 chai-rounded-8 chai-overflow-y"
+              style="max-width: 560px"
+            >
+              <div
+                class="chai-flex chai-items-center chai-justify-between chai-px-16 chai-py-10 chai-border-b chai-border-slate-700"
+              >
+                <span class="mono chai-text-slate-500" style="font-size: 11px"
+                  >example.html</span
+                >
+                <div class="chai-flex chai-gap-6">
+                  <span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 50%;
+                      background: #ef4444;
+                      display: inline-block;
+                    "
+                  ></span>
+                  <span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 50%;
+                      background: #f59e0b;
+                      display: inline-block;
+                    "
+                  ></span>
+                  <span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 50%;
+                      background: #22c55e;
+                      display: inline-block;
+                    "
+                  ></span>
+                </div>
+              </div>
+              <pre
+                class="chai-px-24 chai-py-20 chai-text-slate-300"
+                style="
+                  font-size: 13px;
+                  line-height: 1.8;
+                  overflow-x: auto;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              ><span class="chai-text-slate-500">&lt;div</span> <span class="chai-text-orange-300">class</span>=<span class="chai-text-green-400">"chai-flex chai-gap-16 chai-p-24"</span><span class="chai-text-slate-500">&gt;</span>
+  <span class="chai-text-slate-500">&lt;div</span> <span class="chai-text-orange-300">class</span>=<span class="chai-text-green-400">"chai-bg-blue-500 chai-text-white chai-p-12 chai-rounded-8"</span><span class="chai-text-slate-500">&gt;</span>
+    Hello chai
+  <span class="chai-text-slate-500">&lt;/div&gt;</span>
+<span class="chai-text-slate-500">&lt;/div&gt;</span></pre>
+            </div>
+          </div>
+
+          <!-- Stat badges -->
+          <div
+            class="chai-flex chai-gap-16 chai-mt-32 chai-flex-wrap chai-justify-center"
+          >
+            <div
+              class="chai-bg-slate-800 chai-border-slate-700 chai-border chai-rounded-8 chai-px-16 chai-py-12"
+            >
+              <div
+                class="display chai-text-white chai-mb-2 chai-flex chai-flex-col chai-items-center"
+                style="font-size: 22px; letter-spacing: -0.5px"
+              >
+                120+
+              </div>
+              <div class="mono chai-text-slate-500" style="font-size: 11px">
+                utility classes
+              </div>
+            </div>
+            <div
+              class="chai-bg-slate-800 chai-border-slate-700 chai-border chai-rounded-8 chai-px-16 chai-py-12 chai-flex chai-flex-col chai-items-center"
+            >
+              <div
+                class="display chai-text-white chai-mb-2 chai-text-22"
+                style="letter-spacing: -0.5px"
+              >
+                O(1)
+              </div>
+              <div class="mono chai-text-slate-500" style="font-size: 11px">
+                map lookup dispatch
+              </div>
+            </div>
+            <div
+              class="chai-bg-slate-800 chai-border-slate-700 chai-border chai-rounded-8 chai-px-16 chai-py-12 chai-flex chai-flex-col chai-items-center"
+            >
+              <div
+                class="display chai-text-white chai-mb-2"
+                style="font-size: 22px; letter-spacing: -0.5px"
+              >
+                0
+              </div>
+              <div class="mono chai-text-slate-500" style="font-size: 11px">
+                dependencies
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!--  CONTENT AREA  -->
+        <main class="chai-px-56 chai-py-48 chai-flex chai-flex-col chai-gap-56">
+          <!-- 
+               PADDING
+          -->
+          <section id="padding" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Padding
+              </h2>
+              <span
+                class="mono chai-bg-orange-100 chai-text-orange-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >spacing</span
+              >
+            </div>
+            <p
+              class="chai-text-slate-500 chai-mb-24"
+              style="font-size: 14px; max-width: 580px; line-height: 1.7"
+            >
+              Padding classes accept a numeric pixel value. e.g.
+              <code
+                class="mono chai-bg-slate-100 chai-text-orange-600 chai-px-6 chai-rounded"
+                style="font-size: 12px"
+                >chai-p-16</code
+              >
+              sets
+              <code
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-6 chai-rounded"
+                style="font-size: 12px"
+                >padding: 16px</code
+              >.
+            </p>
+
+            <!-- Live demo -->
+            <div
+              class="chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24 chai-mb-20"
+            >
+              <p
+                class="mono chai-text-slate-400 chai-mb-16"
+                style="
+                  font-size: 11px;
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                "
+              >
+                Live Preview
+              </p>
+              <div class="chai-flex chai-gap-16 chai-flex-wrap">
+                <div class="chai-bg-orange-100 chai-inline-block">
+                  <div
+                    class="chai-bg-orange-400 chai-text-white chai-p-4 chai-rounded"
+                    style="
+                      font-size: 12px;
+                      font-family: 'JetBrains Mono', monospace;
+                    "
+                  >
+                    p-4
+                  </div>
+                </div>
+                <div class="chai-bg-orange-100 chai-inline-block">
+                  <div
+                    class="chai-bg-orange-400 chai-text-white chai-p-12 chai-rounded"
+                    style="
+                      font-size: 12px;
+                      font-family: 'JetBrains Mono', monospace;
+                    "
+                  >
+                    p-12
+                  </div>
+                </div>
+                <div class="chai-bg-orange-100 chai-inline-block">
+                  <div
+                    class="chai-bg-orange-400 chai-text-white chai-p-24 chai-rounded"
+                    style="
+                      font-size: 12px;
+                      font-family: 'JetBrains Mono', monospace;
+                    "
+                  >
+                    p-24
+                  </div>
+                </div>
+                <div class="chai-bg-blue-100 chai-inline-block">
+                  <div
+                    class="chai-bg-blue-500 chai-text-white chai-px-24 chai-py-8 chai-rounded"
+                    style="
+                      font-size: 12px;
+                      font-family: 'JetBrains Mono', monospace;
+                    "
+                  >
+                    px-24 py-8
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-y"
+              style="border-radius: 8px; overflow: hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               MARGIN
+          -->
+          <section id="margin" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Margin
+              </h2>
+              <span
+                class="mono chai-bg-orange-100 chai-text-orange-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >spacing</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-y"
+              style="border-radius: 8px; overflow: hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               BACKGROUND COLOR
+          -->
+          <section id="bg" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Background Color
+              </h2>
+              <span
+                class="mono chai-bg-blue-100 chai-text-blue-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >color</span
+              >
+            </div>
+            <p
+              class="chai-text-slate-500 chai-mb-24"
+              style="font-size: 14px; max-width: 560px; line-height: 1.7"
+            >
+              Supports full scale ramps
+              <code
+                class="mono chai-bg-slate-100 chai-px-6 chai-rounded"
+                style="font-size: 12px"
+                >chai-bg-blue-500</code
+              >
+              and shorthand aliases
+              <code
+                class="mono chai-bg-slate-100 chai-px-6 chai-rounded"
+                style="font-size: 12px"
+                >chai-bg-blue</code
+              >.
+            </p>
+
+            <!-- Swatch grid -->
+            <div class="chai-grid chai-cols-6 chai-gap-8 chai-mb-24">
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-red-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-red-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-red-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-red-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-red-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  red
+                </div>
+              </div>
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-orange-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-orange-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-orange-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-orange-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-orange-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  orange
+                </div>
+              </div>
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-yellow-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-yellow-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-yellow-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-yellow-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-yellow-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  yellow
+                </div>
+              </div>
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-green-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-green-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-green-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-green-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-green-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  green
+                </div>
+              </div>
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-blue-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-blue-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-blue-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-blue-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-blue-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  blue
+                </div>
+              </div>
+              <div class="chai-flex chai-flex-col chai-gap-4">
+                <div
+                  class="chai-bg-purple-100 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-purple-300 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-purple-500 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-purple-700 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="chai-bg-purple-900 chai-rounded-4"
+                  style="height: 28px"
+                ></div>
+                <div
+                  class="mono chai-text-slate-400 chai-text-center"
+                  style="font-size: 10px"
+                >
+                  purple
+                </div>
+              </div>
+            </div>
+
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8"
+              style="border-radius: 8px; overflow: hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TEXT COLOR
+          -->
+          <section id="textcolor" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Text Color
+              </h2>
+              <span
+                class="mono chai-bg-blue-100 chai-text-blue-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >color</span
+              >
+            </div>
+            <!-- Color text demos -->
+            <div class="chai-flex chai-gap-16 chai-flex-wrap chai-mb-24">
+              <span
+                class="chai-text-red-500 display"
+                style="font-size: 18px; font-weight: 700"
+                >chai-text-red-500</span
+              >
+              <span
+                class="chai-text-blue-600 display"
+                style="font-size: 18px; font-weight: 700"
+                >chai-text-blue-600</span
+              >
+              <span
+                class="chai-text-green-600 display"
+                style="font-size: 18px; font-weight: 700"
+                >chai-text-green-600</span
+              >
+              <span
+                class="chai-text-orange-500 display"
+                style="font-size: 18px; font-weight: 700"
+                >chai-text-orange-500</span
+              >
+              <span
+                class="chai-text-purple-600 display"
+                style="font-size: 18px; font-weight: 700"
+                >chai-text-purple-600</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               FONT SIZE
+          -->
+          <section id="fontsize" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Font Size
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <div
+              class="chai-flex chai-flex-col chai-gap-8 chai-mb-24 chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24"
+            >
+              <div
+                class="chai-text-slate-800"
+                style="
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-text-12 → 12px
+              </div>
+              <div
+                class="chai-text-slate-800"
+                style="
+                  font-size: 16px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-text-16 → 16px
+              </div>
+              <div
+                class="chai-text-slate-800"
+                style="
+                  font-size: 20px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-text-20 → 20px
+              </div>
+              <div
+                class="chai-text-slate-800"
+                style="
+                  font-size: 28px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-text-28 → 28px
+              </div>
+              <div
+                class="chai-text-slate-800"
+                style="
+                  font-size: 40px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-text-40 → 40px
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               FONT WEIGHT
+          -->
+          <section id="fontweight" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Font Weight
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <div class="chai-flex chai-gap-24 chai-flex-wrap chai-mb-24">
+              <div class="chai-text-slate-700" style="font-weight: 300">
+                300 — Light
+              </div>
+              <div class="chai-text-slate-700" style="font-weight: 400">
+                400 — Regular
+              </div>
+              <div class="chai-text-slate-700" style="font-weight: 500">
+                500 — Medium
+              </div>
+              <div class="chai-text-slate-700" style="font-weight: 600">
+                600 — SemiBold
+              </div>
+              <div class="chai-text-slate-700" style="font-weight: 700">
+                700 — Bold
+              </div>
+              <div class="chai-text-slate-700" style="font-weight: 800">
+                800 — ExtraBold
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TEXT ALIGN
+          -->
+          <section id="textalign" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Text Align
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TEXT TRANSFORM
+          -->
+          <section id="texttrans" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Text Transform
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <table>
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TEXT STYLE & DECORATION
+          -->
+          <section id="textstyle" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Style &amp; Decoration
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <table>
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               LEADING / TRACKING
+          -->
+          <section id="leading" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Leading &amp; Tracking
+              </h2>
+              <span
+                class="mono chai-bg-purple-100 chai-text-purple-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >typography</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               DISPLAY
+          -->
+          <section id="display" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Display
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               FLEXBOX
+          -->
+          <section id="flexbox" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Flexbox
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <!-- Live demo -->
+            <div
+              class="chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24 chai-mb-20"
+            >
+              <p
+                class="mono chai-text-slate-400 chai-mb-12"
+                style="
+                  font-size: 11px;
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                "
+              >
+                chai-flex chai-items-center chai-justify-between chai-gap-12
+              </p>
+              <div
+                class="chai-flex chai-items-center chai-justify-between chai-gap-12"
+              >
+                <div
+                  class="chai-bg-orange-400 chai-text-white chai-px-16 chai-py-10 chai-rounded"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  A
+                </div>
+                <div
+                  class="chai-bg-blue-400 chai-text-white chai-px-16 chai-py-24 chai-rounded"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  B
+                </div>
+                <div
+                  class="chai-bg-green-400 chai-text-white chai-px-16 chai-py-10 chai-rounded"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  C
+                </div>
+              </div>
+            </div>
+
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+            <!-- justify/items values -->
+            <div
+              class="chai-bg-blue-50 chai-border chai-border-blue-200 chai-rounded-8 chai-p-16 chai-mt-16"
+            >
+              <p
+                class="mono chai-text-blue-600 chai-mb-8"
+                style="
+                  font-size: 11px;
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
+                "
+              >
+                Valid values for {value}
+              </p>
+              <div class="chai-flex chai-gap-8 chai-flex-wrap">
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >start</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >end</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >center</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >between</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >around</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >evenly</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >stretch</code
+                >
+                <code
+                  class="mono chai-bg-white chai-text-blue-700 chai-px-8 chai-py-4 chai-rounded chai-border chai-border-blue-200"
+                  style="font-size: 12px"
+                  >baseline</code
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- 
+               GRID
+          -->
+          <section id="grid" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Grid
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <!-- Live demo -->
+            <div
+              class="chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24 chai-mb-20"
+            >
+              <p
+                class="mono chai-text-slate-400 chai-mb-12"
+                style="
+                  font-size: 11px;
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                "
+              >
+                chai-grid chai-cols-3 chai-gap-12
+              </p>
+              <div class="chai-grid chai-cols-3 chai-gap-12">
+                <div
+                  class="chai-bg-orange-400 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  1
+                </div>
+                <div
+                  class="chai-bg-orange-300 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  2
+                </div>
+                <div
+                  class="chai-bg-orange-400 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  3
+                </div>
+                <div
+                  class="chai-bg-orange-300 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  4
+                </div>
+                <div
+                  class="chai-bg-orange-400 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  5
+                </div>
+                <div
+                  class="chai-bg-orange-300 chai-text-white chai-p-16 chai-rounded chai-text-center"
+                  style="
+                    font-size: 13px;
+                    font-family: 'JetBrains Mono', monospace;
+                  "
+                >
+                  6
+                </div>
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               GAP
+          -->
+          <section id="gap" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Gap
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               SIZING
+          -->
+          <section id="sizing" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Sizing
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+            <div
+              class="chai-bg-blue-50 chai-border chai-border-blue-200 chai-rounded-8 chai-p-16 chai-mt-16"
+            >
+              <p class="mono chai-text-blue-700" style="font-size: 12px">
+                Special keywords:
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >full</code
+                >
+                → 100% ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >screen</code
+                >
+                → 100vw ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >vh</code
+                >
+                → 100vh ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >auto</code
+                >
+                ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >fit</code
+                >
+                → fit-content ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >min</code
+                >
+                → min-content ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >max</code
+                >
+                → max-content
+              </p>
+            </div>
+          </section>
+
+          <!-- 
+               POSITION
+          -->
+          <section id="position" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Position
+              </h2>
+              <span
+                class="mono chai-bg-green-100 chai-text-green-700 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >layout</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               BORDER
+          -->
+          <section id="border" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Border
+              </h2>
+              <span
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >visual</span
+              >
+            </div>
+            <!-- Live demo -->
+            <div
+              class="chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24 chai-mb-20 chai-flex chai-gap-16 chai-flex-wrap"
+            >
+              <div
+                class="chai-border chai-p-16 chai-rounded chai-text-slate-600"
+                style="
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-border
+              </div>
+              <div
+                class="chai-border-t chai-p-16 chai-text-slate-600"
+                style="
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-border-t
+              </div>
+              <div
+                class="chai-rounded-8 chai-bg-blue-500 chai-p-16 chai-text-white"
+                style="
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-rounded-8
+              </div>
+              <div
+                class="chai-rounded-full chai-bg-orange-400 chai-px-16 chai-py-8 chai-text-white"
+                style="
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                chai-rounded-full
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               SHADOW
+          -->
+          <section id="shadow" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Shadow
+              </h2>
+              <span
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >visual</span
+              >
+            </div>
+            <div class="chai-flex chai-gap-20 chai-flex-wrap chai-mb-24">
+              <div
+                class="chai-bg-white chai-p-20 chai-rounded-8 chai-text-center"
+                style="
+                  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                  min-width: 90px;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                  color: #64748b;
+                "
+              >
+                shadow-sm
+              </div>
+              <div
+                class="chai-bg-white chai-p-20 chai-rounded-8 chai-text-center"
+                style="
+                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                  min-width: 90px;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                  color: #64748b;
+                "
+              >
+                shadow-md
+              </div>
+              <div
+                class="chai-bg-white chai-p-20 chai-rounded-8 chai-text-center"
+                style="
+                  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+                  min-width: 90px;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                  color: #64748b;
+                "
+              >
+                shadow-lg
+              </div>
+              <div
+                class="chai-bg-white chai-p-20 chai-rounded-8 chai-text-center"
+                style="
+                  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
+                  min-width: 90px;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                  color: #64748b;
+                "
+              >
+                shadow-xl
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               OPACITY
+          -->
+          <section id="opacity" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Opacity
+              </h2>
+              <span
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >visual</span
+              >
+            </div>
+            <div class="chai-flex chai-gap-12 chai-mb-24 chai-flex-wrap">
+              <div
+                class="chai-bg-orange-500 chai-p-16 chai-rounded chai-text-white"
+                style="
+                  opacity: 1;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                100
+              </div>
+              <div
+                class="chai-bg-orange-500 chai-p-16 chai-rounded chai-text-white"
+                style="
+                  opacity: 0.75;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                75
+              </div>
+              <div
+                class="chai-bg-orange-500 chai-p-16 chai-rounded chai-text-white"
+                style="
+                  opacity: 0.5;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                50
+              </div>
+              <div
+                class="chai-bg-orange-500 chai-p-16 chai-rounded chai-text-white"
+                style="
+                  opacity: 0.25;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                25
+              </div>
+              <div
+                class="chai-bg-orange-500 chai-p-16 chai-rounded chai-text-white"
+                style="
+                  opacity: 0.1;
+                  font-size: 12px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                10
+              </div>
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               OVERFLOW
+          -->
+          <section id="overflow" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Overflow
+              </h2>
+              <span
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-10 chai-py-4 chai-rounded"
+                style="font-size: 11px"
+                >visual</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+            <div
+              class="chai-bg-blue-50 chai-border chai-border-blue-200 chai-rounded-8 chai-p-12 chai-mt-12"
+            >
+              <p class="mono chai-text-blue-700" style="font-size: 12px">
+                Values:
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >auto</code
+                >
+                ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >hidden</code
+                >
+                ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >scroll</code
+                >
+                ·
+                <code
+                  style="
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                  "
+                  >visible</code
+                >
+              </p>
+            </div>
+          </section>
+
+          <!-- 
+               CURSOR
+          -->
+          <section id="cursor" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Cursor
+              </h2>
+              <span
+                class="chai-text-11 mono chai-bg-yellow-100 chai-text-yellow-700 chai-px-10 chai-py-4 chai-rounded"
+                >interactivity</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TRANSFORM
+          -->
+          <section id="transform" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Transform
+              </h2>
+              <span
+                class="chai-text-11 mono chai-bg-yellow-100 chai-text-yellow-700 chai-px-10 chai-py-4 chai-rounded"
+                >interactivity</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               TRANSITION
+          -->
+          <section id="transition" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2
+                class="display chai-text-slate-900 chai-text-26 chai-tracking--1"
+              >
+                Transition
+              </h2>
+              <span
+                class="chai-text-11 mono chai-bg-yellow-100 chai-text-yellow-700 chai-px-10 chai-py-4 chai-rounded"
+                >interactivity</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               MISC UTILITIES
+          -->
+          <section id="misc" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2 class="display chai-text-slate-900 chat-text-26">
+                Misc Utilities
+              </h2>
+              <span
+                class="mono chai-bg-slate-100 chai-text-slate-600 chai-px-10 chai-py-4 chai-rounded chai-text-11"
+                >misc</span
+              >
+            </div>
+            <table
+              class="chai-bg-white chai-border chai-border-slate-200 chai-rounded-8 chai-overflow-hidden chai-rounded-8"
+            >
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <!-- 
+               COLOR PALETTE
+          -->
+          <section id="colors" class="section">
+            <div
+              class="chai-flex chai-items-center chai-gap-12 chai-mb-24 chai-pb-16 chai-border-b chai-border-slate-200"
+            >
+              <h2 class="display chai-text-slate-900 chai-text-2xl">
+                Color Palette
+              </h2>
+              <span
+                class="mono chai-bg-blue-100 chai-text-blue-700 chai-px-10 chai-py-4 chai-rounded chai-text-11"
+                >color</span
+              >
+            </div>
+
+            <p
+              class="chai-text-slate-500 chai-mb-24 chai-text-sm chai-leading-relaxed"
+            >
+              All colors available for
+              <code
+                class="mono chai-bg-slate-100 chai-px-6 chai-rounded chai-text-xs"
+                >chai-bg-*</code
+              >,
+              <code
+                class="mono chai-bg-slate-100 chai-px-6 chai-rounded chai-text-xs"
+                >chai-text-*</code
+              >, and
+              <code
+                class="mono chai-bg-slate-100 chai-px-6 chai-rounded chai-text-xs"
+                >chai-border-*</code
+              >.
+            </p>
+
+            <div
+              id="palette-grid"
+              class="chai-flex chai-flex-col chai-gap-12"
+            ></div>
+
+            <script>
+              const SCALE_COLORS = [
+                { name: 'slate', labelClass: 'chai-text-slate-500' },
+                { name: 'gray', labelClass: 'chai-text-slate-500' },
+                { name: 'red', labelClass: 'chai-text-red-500' },
+                { name: 'orange', labelClass: 'chai-text-orange-500' },
+                { name: 'yellow', labelClass: 'chai-text-yellow-600' },
+                { name: 'green', labelClass: 'chai-text-green-600' },
+                { name: 'blue', labelClass: 'chai-text-blue-600' },
+                { name: 'indigo', labelClass: 'chai-text-indigo-600' },
+                { name: 'purple', labelClass: 'chai-text-purple-600' },
+                { name: 'pink', labelClass: 'chai-text-pink-600' },
+              ];
+
+              const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+
+              const ALIASES = [
+                'teal',
+                'cyan',
+                'lime',
+                'emerald',
+                'violet',
+                'fuchsia',
+                'rose',
+                'sky',
+                'amber',
+                'black',
+                'white',
+              ];
+
+              const grid = document.getElementById('palette-grid');
+
+              //  Scale rows ──────────────────────────────────────────────────────────
+              SCALE_COLORS.forEach(({ name, labelClass }, i) => {
+                const row = document.createElement('div');
+                row.className = 'chai-flex chai-items-center chai-gap-12';
+
+                // Label
+                const label = document.createElement('div');
+                label.className = `mono chai-text-11 chai-text-right ${labelClass} chai-w-60`;
+                label.style.cssText = 'flex-shrink:0;';
+                label.textContent = name;
+                row.appendChild(label);
+
+                // Swatches
+                const swatches = document.createElement('div');
+                swatches.className = 'chai-flex chai-gap-4 chai-flex-1';
+                SHADES.forEach((shade) => {
+                  const swatch = document.createElement('div');
+                  swatch.className = `chai-flex-1 chai-rounded-4 chai-h-18 chai-bg-${name}-${shade}`;
+                  swatch.title = `${name}-${shade}`;
+                  swatches.appendChild(swatch);
+                });
+                row.appendChild(swatches);
+
+                // Range label (only first row)
+                const range = document.createElement('div');
+                range.className =
+                  'mono chai-text-slate-400 chai-text-10 chai-w-110';
+                range.style.cssText = ' flex-shrink:0;';
+                range.textContent = i === 0 ? '50 → 900' : '';
+                row.appendChild(range);
+
+                grid.appendChild(row);
+              });
+
+              //  Shorthand aliases ────────────────────────────────────────────────────
+              const aliasSection = document.createElement('div');
+              aliasSection.className =
+                'chai-border-t chai-border-slate-200 chai-pt-20 chai-mt-8';
+
+              const aliasLabel = document.createElement('p');
+              aliasLabel.className =
+                'mono chai-text-slate-400 chai-mb-12 chai-text-11 chai-uppercase chai-tracking-wide';
+              aliasLabel.textContent = 'Shorthand aliases';
+              aliasSection.appendChild(aliasLabel);
+
+              const aliasRow = document.createElement('div');
+              aliasRow.className = 'chai-flex chai-gap-8 chai-flex-wrap';
+
+              ALIASES.forEach((name) => {
+                const item = document.createElement('div');
+                item.className =
+                  'chai-flex chai-flex-col chai-items-center chai-gap-6';
+
+                const swatch = document.createElement('div');
+                // white needs a border so it's visible on light bg
+                swatch.className = [
+                  'chai-rounded-4',
+                  'chai-w-40',
+                  'chai-h-10',
+                  `chai-bg-${name}`,
+                  name === 'white' ? 'chai-border chai-border-slate-200' : '',
+                ].join(' ');
+                item.appendChild(swatch);
+
+                const nameLabel = document.createElement('div');
+                nameLabel.className = 'mono chai-text-slate-500 chai-text-10';
+                nameLabel.textContent = name;
+                item.appendChild(nameLabel);
+
+                aliasRow.appendChild(item);
+              });
+
+              aliasSection.appendChild(aliasRow);
+              grid.appendChild(aliasSection);
+            </script>
+          </section>
+          <section id="tailwind-playground" class="section chai-mb-56">
+            <div
+              class="chai-flex chai-gap-32 chai-items-start chai-bg-slate-50 chai-border chai-border-slate-200 chai-rounded-8 chai-p-24"
+            >
+              <!-- Editor -->
+              <div class="chai-flex-1">
+                <label
+                  for="playground-input"
+                  class="chai-block chai-mb-8 chai-text-slate-700 chai-font-bold"
+                >
+                  Playground (HTML + chai classes)
+                </label>
+                <textarea
+                  id="playground-input"
+                  class="chai-w-full chai-p-12 chai-border chai-border-slate-300 chai-rounded chai-text-14 chai-bg-white"
+                  style="
+                    height: 200px;
+                    font-family: 'JetBrains Mono', monospace;
+                    resize: vertical;
+                  "
+                  placeholder="<div class='chai-bg-blue-500 chai-text-white chai-p-8'>Hello chai!</div>"
+                ></textarea>
+              </div>
+
+              <!-- Live Preview -->
+              <div class="chai-flex-1">
+                <label
+                  class="chai-block chai-mb-8 chai-text-slate-700 chai-font-bold"
+                >
+                  Live Preview
+                </label>
+                <div
+                  class="chai-border chai-border-slate-300 chai-rounded chai-bg-white chai-p-12"
+                  style="min-height: 200px"
+                >
+                  <iframe
+                    id="playground-preview"
+                    class="chai-w-full"
+                    style="height: 200px; border: none"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              const playgroundInput =
+                document.getElementById('playground-input');
+              const playgroundPreview =
+                document.getElementById('playground-preview');
+
+              // Grab the chai engine source from the current page's script tag
+              // so we can inject it directly into the iframe
+              async function getChaiSource() {
+                try {
+                  const res = await fetch('/src/main.js');
+                  return await res.text();
+                } catch (e) {
+                  console.error('Could not load chai source:', e);
+                  return '';
+                }
+              }
+
+              async function updatePreview() {
+                const userCode = playgroundInput.value;
+                const chaiSource = await getChaiSource();
+
+                const doc = `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: sans-serif; padding: 12px; }
+    </style>
+  </head>
+  <body>
+    ${userCode}
+    <script>${chaiSource}<\/script>
+  </body>
+</html>`;
+
+                playgroundPreview.srcdoc = doc;
+              }
+
+              // Debounce so it doesn't re-render on every keystroke
+              let debounceTimer;
+              playgroundInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(updatePreview, 300);
+              });
+
+              // Set default and render
+              playgroundInput.value =
+                "<div class='chai-bg-blue-500 chai-text-white chai-p-16 chai-rounded-8 chai-text-lg chai-font-bold'>Hello chai!</div>";
+              updatePreview();
+            </script>
+          </section>
+
+          <!-- Footer -->
+          <footer
+            class="chai-border-t chai-border-slate-200 chai-pt-32 chai-pb-48 chai-flex chai-items-center chai-justify-between"
+          >
+            <div class="chai-flex chai-items-center chai-gap-10">
+              <div
+                class="chai-bg-orange-500 chai-rounded chai-flex chai-items-center chai-justify-center chai-w-24 chai-h-24"
+              >
+                <span class="mono chai-text-white chai-text-11 chai-font-700"
+                  >c</span
+                >
+              </div>
+              <span class="display chai-text-slate-500 chai-text-15"
+                >chai utility classes</span
+              >
+            </div>
+            <span class="mono chai-text-slate-400 chai-text-11"
+              >v2.0 · object-map build · 0 deps</span
+            >
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <!-- Chai engine-->
+    <script src="/src/main.js"></script>
+  </body>
+</html>
