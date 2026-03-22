@@ -929,7 +929,7 @@ function renderTbody(tbody, data) {
         ${item.property}
       </td>
       <td class="chai-px-16 chai-py-10 chai-text-slate-400 chai-text-13">
-        ${item.note}
+        ${item?.note ? item?.note : ''}
       </td>
     </tr>
   `
@@ -1343,3 +1343,35 @@ Object.keys(IdNames).forEach((id) => {
     renderTbody(tbody, IdNames[id]);
   }
 });
+
+function generateColorUtilities(colors) {
+  const result = [];
+
+  Object.entries(colors).forEach(([color, value]) => {
+    if (typeof value === 'string') {
+      // shorthand
+      result.push({
+        class: `chai-bg-${color}`,
+        property: `backgroundColor: ${value}`,
+      });
+      result.push({
+        class: `chai-text-${color}`,
+        property: `color: ${value}`,
+      });
+    } else {
+      // scale
+      Object.entries(value).forEach(([shade, hex]) => {
+        result.push({
+          class: `chai-bg-${color}-${shade}`,
+          property: `backgroundColor: ${hex}`,
+        });
+        result.push({
+          class: `chai-text-${color}-${shade}`,
+          property: `color: ${hex}`,
+        });
+      });
+    }
+  });
+
+  return result;
+}
